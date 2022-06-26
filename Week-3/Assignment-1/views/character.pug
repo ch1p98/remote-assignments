@@ -1,0 +1,12 @@
+extends layout.pug
+
+block content
+    div 
+        p #{name}
+    div 
+        p #{text}
+    div 
+        form(action="") 
+            label(for="name") Property: 
+            input(type="text" id="name" name="prop")
+            button(type="submit") Submit

@@ -1,0 +1,38 @@
+{
+    "data": {
+        "title": "Girls und Panzer characters",
+        "chars": [
+            {
+                "name": "西住美穗",
+                "birthday": "10/23",
+                "favorite_tank": "二號坦克E/F型"
+            },
+            {
+                "name": "武部沙織",
+                "birthday": "6/22",
+                "favorite_tank": "M26潘興"
+            },
+            {
+                "name": "凱伊",
+                "birthday": "1/17",
+                "favorite_tank": "M4雪曼中戰車"
+            },
+            {
+                "name": "瑪麗",
+                "birthday": "4/20",
+                "favorite_tank": "雷諾FT(FT-17)"
+            },
+            {
+                "name": "五十鈴華",
+                "birthday": "12/16",
+                "favorite_tank": "CV-33"
+            },
+            {
+                "name": "角谷杏",
+                "birthday": "1/1",
+                "favorite_tank": "T28超重戰車"
+            }
+        ]
+    }
+}
+

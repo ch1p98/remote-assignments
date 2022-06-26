@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+    body 
+        if myName
+            div
+                p #{myName}
+        else
+            div
+                form(action="/trackName", method='post')
+                    label(for="myName") Please input your name 
+                        input(type="text", name='myName')
+                    button(type='submit') Submit  
+
