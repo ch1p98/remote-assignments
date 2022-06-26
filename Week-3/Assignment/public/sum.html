@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      let num = 20;
+      function ajax_calc() {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            document.getElementById("ajax").innerHTML = xhr.responseText;
+          }
+        };
+        xhr.open("GET", "http://localhost:3000/data?number=" + num);
+        xhr.send();
+      }
+      function func() {
+        num = document.getElementById("input_number").value;
+        ajax_calc();
+      }
+      ajax_calc();
+    </script>
+  </head>
+  <body>
+    <p>calculate sum of 1 to N; please enter N (must > 0):</p>
+    <label for="calc">N:</label>
+    <input type="number" id="input_number" value="17" min="0" required />
+    <button onclick="func()" name="calc">Submit</button>
+    <div>
+      <div>N sum:</div>
+      <div id="ajax"></div>
+    </div>
+  </body>
+</html>
