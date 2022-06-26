@@ -1,0 +1,14 @@
+extends layout.pug
+
+block content 
+    h1 Twitter of CVs
+    div
+        form(action = '/fanpage', method='post')
+            label Please input the name of CV
+                input(type='text', name='cv_name')
+            button(type='submit') Submit
+    
+    if msg
+        p #{msg}
+    div 
+        a(href="https://mzh.moegirl.org.cn/zh-tw/%E5%B0%91%E5%A5%B3%E4%B8%8E%E6%88%98%E8%BD%A6") 少女與戰車 
