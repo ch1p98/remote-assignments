@@ -1,14 +1,11 @@
 function avg(data) {
   let items = data.products;
-  let prices = [];
+  let prices = 0;
 
   for (let i = 0; i < items.length; i++) {
-    prices.push(items[i].price);
+    prices += items[i].price;
   }
-  let non = 0;
-  let res = prices.reduce((cur, next) => cur + next, non);
-  res = res / prices.length;
-  return res;
+  return prices / items.length;
 }
 console.log(
   avg({
