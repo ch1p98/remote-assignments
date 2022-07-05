@@ -5,21 +5,11 @@ const mysql = require("mysql");
 const app = express();
 
 const db = mysql.createConnection({
-  host: "54.71.***.***",
-  user: "root",
-  password: "********",
-  database: "assignment",
+  host: "sql6.freesqldatabase.com",
+  user: "sql6504187",
+  password: "LV19pqBPkG",
+  database: "sql6504187",
 });
-//connection
-/*db.connect()
-  .then(() => {
-    console.log("connected to server.");
-  })
-  .catch((err) => {
-    console.log(err);
-  });*/
-
-//tutorial edition
 db.connect((err) => {
   if (err) {
     throw err;
@@ -32,23 +22,66 @@ app.use(cookie_parser());
 app.set("view engine", "pug");
 app.use(express.static("public"));
 
-app.get("/signup", (req, res) => {
-  res.render("./signup");
+app.get("/signin", (req, res) => {
+  res.render("./signin");
 });
 
 app.get("/signup", (req, res) => {
   res.render("./signup");
 });
 
-app.post("/signin", (req, res) => {});
+app.get("/logout", (req, res) => {
+  res.clearCookie("email");
+  res.redirect("/");
+});
 
-app.post("/signup", (req, res) => {});
+async function db_query(sql) {
+  return new Promise((resolve, reject) => {
+    db.query(sql, (err, result) => {
+      if (err) reject(err);
+      else {
+        //console.log("db_query");
+        //console.log(typeof result);
+        resolve(result);
+      }
+    });
+  });
+}
+
+app.post("/signin", async (req, res) => {
+  const { email, password } = req.body;
+  let sql = `SELECT * FROM users WHERE email = '${email}' AND password = '${password}'`;
+  let result = await db_query(sql);
+  if (result.length === 0) {
+    console.log("invalid data.");
+    res.redirect("/");
+  } else {
+    res.cookie("email", req.body.email);
+    res.redirect("/");
+  }
+});
+
+app.post("/signup", async (req, res) => {
+  const { email, password } = req.body;
+  let sql_check = `SELECT * FROM users WHERE email = '${email}'`;
+  let reg_check = await db_query(sql_check);
+
+  if (reg_check.length > 0) {
+    console.log("user existed. try again.");
+    res.redirect("/");
+  } else {
+    res.cookie("email", req.body.email);
+    let sql = `INSERT INTO users SET email = '${email}', password = '${password}'`;
+    let reg_result = await db_query(sql);
+    res.cookie("email", req.body.email);
+    res.redirect("/");
+  }
+});
 
 app.get("/", (req, res) => {
-  const user_id = req.cookies.user_id;
-  console.log(user_id);
-  if (user_id) {
-    res.render("index", { user_id });
+  const user_email = req.cookies.email;
+  if (user_email) {
+    res.render("index", { user_email });
   } else {
     res.redirect("/signup");
   }
@@ -65,10 +98,10 @@ app.get("/create_db", (req, res) => {
 
 app.get("/create_table", (req, res) => {
   const sql =
-    "CREATE TABLE users(id int AUTO_INCREMENT, email VARCHAR(255), password VARCHAR(255), PRIMARY KEY (id))";
-  db.query(sql, (err, res) => {
+    "CREATE TABLE user(id int AUTO_INCREMENT, email VARCHAR(255), password VARCHAR(255), PRIMARY KEY (id))";
+  db.query(sql, (err, result) => {
     if (err) throw err;
-    console.log(res);
+    console.log(result);
     res.send(`table "${sql.split(" ")[2]}" created.`);
   });
 });

@@ -4,11 +4,14 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Sign-in
+        title Sign-up
     body 
-    form(action="./sign-up" method="post")
+    form(action="./signup" method="post")
         label Please input your email:
-            input(type='text', name='email')
+            input(type='text', name='email' required)
         label Please input your password: 
-            input(type='password' name="password")
-        button(type='submit') Submit
+            input(type='password' name="password" required)
+        button(type='submit') Register
+    
+    a(href="/signin") Already have an account? Sign in
+    div #{error_msg}
